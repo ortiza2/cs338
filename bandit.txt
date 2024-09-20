@@ -1,0 +1,46 @@
+Level 0 -> 1: ls, cat readme (ls allows for you to see whats in the directory and cat allows you to open a file in that directory)
+Password: ZjLjTmM6FvvyRnrb2rfNWOZOTa6ip5If
+
+Level 1 -> 2: ls, cat ./- (this is how to open dash files)
+Password: 263JGJPfgU6LtdEvgfWU1XP5yac29mFx
+
+Level 2 -> 3: ls, cat "spaces in this filename" (quotations help us to open files with named with more than one word)
+Passwrod: MNk8KNH3Usiio41PRUEoDFPqfxLPlSmx
+
+Level 3 -> 4: ls, cd inhere, ls -a, cat ".  ..  ...Hiding-From-You" (this shows us how to open hidden files with ls -a)
+Password: MNk8KNH3Usiio41PRUEoDFPqfxLPlSmx
+
+Level 4 -> 5: ls, cd inhere, ls, file ./*, cat ././-file07 (the file ./* allows us to see all the file types of the files in the directory, and ././-file07 allows us to open files that start with ./)
+Password: 4oQYVPkxZOOEOO5pTW81FB8j8lxXGUQw
+
+Level 5 -> 6: ls, cd inhere, ls, find -readable -size 1033c ! -executable, cat ./maybehere07/.file2 (find -readable -size 1033c ! -executable helps us to find human-readable, 1033 bytes in size, and not executable)
+Password: HWasnPhtq9AVKe0dmk45nxy20cvUa6EG
+
+Level 6 -> 7: find / -type f -user bandit7 -group bandit6 -size 33c 2>/dev/null, cat /var/lib/dpkg/info/bandit7.password (using different commands along side find we can find the exact type of file we are looking for, we start with -type f
+because we are searching for a file, and use -user and search for the owner 'bandit7', then we we want the specific group 'bandit6' and we use -group for this, and lastly the we want the file by 33 bytes so we search for 
+33c with -byte (we need the c because this is to specify bytes instead of 'block units') then we 'utilize 2>/dev/null', and this is to get rid of all error files where 2> redirects the standard errors and then /dev/null just makes it disappear
+Password: morbNTDkSW6jIlUc0ymOdMaLnOlFVAaj
+
+level 7 -> 8: ls, cat data.txt | grep millionth (sinc ethe file is too large to read we can search for the word millionth with grep since the password is next to millionth)
+Password: dfwvzFQi4mU0wfNbFOe9RoWskMLg7eEc
+
+Level 8 -> 9: ls, sort data.txt | uniq -u, (we need to use 'sort' first in order to sort the list of words in alphebetical and numerical order and we need this to find the password which only appears once
+so we use 'unuq -u' to acomplish this where 'uniq' works to find duplicate lines that are next to each other and sort helps with this, but on their own 'uniq' filters out repeated lines that appear next
+to each other and -u tells it to display lines that only appear once
+Password: 4CKMh1JI91bUIZZPXDqGanal4xvAg0JM
+
+level 9 -> 10: ls, strings data.txt | grep "=" ( here we only owant human readable strings so we use string and then use grep to find the strings that contain '=" in them)
+Password: FGUW5ilLVJrxX9kMYMmlN4MgbpfMiqey
+
+Level 10 -> 11: ls, cat data.txt, base64 -d data.txt (here we read the file using cat and then use base64 -d which allows us to decode base64 encoded data)
+Password: dtR173fZKb0RRsDFSGsg2RWnpNVj3qRr
+
+Level 11 -> 12: ls, cat data.txt | tr 'A-Za-z' 'N-ZA-Mn-za-m' (here we use tr to hold substitution for when we roate by 13 using the rot13 method, typing in 'A-Za-z' 'N-ZA-Mn-za-m'
+Password: 7x16WNeHIi5YkIhWsfFIqoognUTyj9Q4
+
+
+
+
+
+
+
