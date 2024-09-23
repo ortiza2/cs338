@@ -1,0 +1,31 @@
+Angel Oritz
+
+===== DAYTIME =====
+
+1. 1 0.000000000      192.168.64.2       129.6.15.28     TCP     74 60092 -> 13 [SYN] Seq=0 WIN=32120 Len=0 MSS=1460 SACK_PERM TSval=2779329535  Tsecr=0  WS=128
+   2 0.037697264      129.6.15.28        192.168.64.2    TCP     66 13 -> 60092 [SYN, ACK] SEQ=0 Ack=1 Win=65535 Len=0 MSS=1382 WS=64 SACK_PERM
+   3 0.037963678      192.168.64.2       129.6.15.28     TCP     54 60092 -> 13 [ACK] Seq=1 Ack=1 Win=32128 Len=0
+
+2. Src Port: 60092
+
+3. A client needs the port number of a server so it can contact it. Ports make it so that multiple services can run on a single server 
+and help direct the client's request to the appropriate service.
+
+4. 4 0.074708203      129.6.15.28        192.168.64.2    DAYTIME 105  DAYTIME RESPONSE
+
+5. [SYN] and [ACK] are used to establish a TCP connection / three-way handshake: [SYN] is used to initiate the TCP connection and 
+[ACK] is used to acknowledge the receipt of data
+
+6. The [FIN] protocol is used to terminate the the connection between a client and a server. The daytime server initiated the the closing of the TCP connection
+since they are the source ip and nc client was the destinition and the [FIN] protocol was used.
+
+===== HTTP =====
+
+1. Since there were four [FIN, ACK] protocols used this tells us that two TCP connections were opened and closed. Since each TCP connection funs with a pair of
+[FIN, ACK] to be closed, from client to server and server to client, this means that two connections need two pairs of these so a total of 4 were used.
+
+2. I believe it was in line 28 because the 'GET' function was used to request the HTTP showing 'GET / HTTP/1.1\\r\n'
+
+
+3. I believe it was in line 447 where it reads 'JPEG JFIF image' and it reads the contents of the image.
+477 0.645180010 172.233.221.124  192.168.64.2  HTTP  4836  HTTP/1.1  200 OK    {JPEG JFIF image}
