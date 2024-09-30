@@ -3,10 +3,9 @@ Angel Ortiz
 We are given g=7 and p=97 and that Alice sent Bob A=53 and Bob sent Alice B=82. With these numbers we can start to substitute them into the equation and solve for little a and little b to 
 decrpyt the message.
 
-We know that A = g^a mod p. So, 53 ≡ 7^a mod 97.
-To find a, we compute 7^k mod 97 for k = 1 to 96 until we find 7^a ≡ 53 mod 97.
+From the formula we know A = g^a mod p thus 53 ≡ 7^a mod 97.
 
-Compute 7^k mod 97:
+Now we need to find a and we can do that by trying different k's until we find one that works.
 
 7^1 mod 97 = 7
 7^2 mod 97 = 49
@@ -31,4 +30,136 @@ Compute 7^k mod 97:
 7^21 mod 97 = 88
 7^22 mod 97 = 53
 
-Therefore, Alice's secret exponent is a = 22.
+Thus Alice's little a is 22. 
+
+Now we do the same thing to find little b. Where we know that B = g^b mod p thus 82 ≡ 7^b mod 97.
+
+7^1 mod 97 = 7
+7^2 mod 97 = 49
+7^3 mod 97 = 52
+7^4 mod 97 = 73
+7^5 mod 97 = 26
+7^6 mod 97 = 88
+7^7 mod 97 = 34
+7^8 mod 97 = 45
+7^9 mod 97 = 24
+7^10 mod 97 = 72
+7^11 mod 97 = 18
+7^12 mod 97 = 29
+7^13 mod 97 = 9
+7^14 mod 97 = 63
+7^15 mod 97 = 54
+7^16 mod 97 = 90
+7^17 mod 97 = 49
+7^18 mod 97 = 52
+7^19 mod 97 = 73
+7^20 mod 97 = 26
+7^21 mod 97 = 88
+7^22 mod 97 = 53
+7^23 mod 97 = 82
+7^24 mod 97 = 91
+7^25 mod 97 = 56
+7^26 mod 97 = 4
+7^27 mod 97 = 28
+7^28 mod 97 = 2
+7^29 mod 97 = 14
+7^30 mod 97 = 98
+7^31 mod 97 = 27
+7^32 mod 97 = 34
+7^33 mod 97 = 32
+7^34 mod 97 = 65
+7^35 mod 97 = 21
+7^36 mod 97 = 11
+7^37 mod 97 = 67
+7^38 mod 97 = 91
+7^39 mod 97 = 56
+7^40 mod 97 = 4
+7^41 mod 97 = 82
+
+Bob's little b is 41. 
+
+Now we need to calculate for K where
+
+K = A^b mod p = B^a mod p so in order to less calculations we do the lower exponent so we take 
+
+K = 82^22 mod 97
+
+Now we express 22 in binary form where
+
+16 + 4 + 2 = 22 and with this now we can calculate them separately so save time.
+
+82^1 mod 97 = 82
+
+82^2 mod 97
+82^2= 6724 mod 97 = 31
+
+82^4 mod 97
+82^4 = 961 mod 97 = 88
+
+82^8 mod 97
+82^8 = 7744 mod 97 = 81
+
+82^16 mod 97
+82^16 = 6561 mod 97 = 62
+
+Now we compute
+62 × 88 x 31 = 169136 mod 97 = 65 
+
+Thus K = 65.
+
+If p was a super large prime then computing a or b with this algorithm would be impossible even with super powerful computers
+because it would take so much time.
+
+RSA encryption as done in the lab now:
+
+Factor n_Bob to Find p and q
+Find x such that x = ⌈n⌉:
+
+x = ⌈162991⌉ = 404
+Compute y where y^2 = x^2 − n:
+
+y^2 = 404^2 − 162991 = 163216 − 162991 = 225
+Calculate y:
+
+y = √225 = 15
+Find p and q:
+
+p = x − y = 404 − 15 = 389
+q = x + y = 404 + 15 = 419
+Therefore, n = 389 × 419.
+
+Next: Compute λ(n) = lcm(p − 1, q − 1)
+Compute p − 1 and q − 1:
+
+p − 1 = 388
+q − 1 = 418
+Compute gcd(388, 418):
+
+gcd(418, 388) = gcd(388, 30) = gcd(30, 28) = gcd(28, 2) = 2
+Compute λ(n):
+
+λ(n) = (p − 1)(q − 1) / gcd(p − 1, q − 1) = 388 × 418 / 2 = 81092
+
+Next we Compute Bob's Private Key d_Bob
+
+We need d such that:
+
+e_Bob ⋅ d_Bob ≡ 1 mod λ(n)
+e_Bob = 13 modulo λ(n) = 81092:
+
+Then I used a euclidean algorithm calculator to calculate
+d_Bob = 43665
+
+Then using a python script to decrpt I got the values:
+
+[17509, 24946, 8258, 28514, 11296, 25448, 25955, 27424, 29800, 26995, 8303, 30068, 11808, 26740, 29808, 29498, 12079, 30583, 30510, 29557, 29302, 25961, 27756, 24942, 25445, 30561, 29795, 26670, 26991, 12064, 21349, 25888, 31073, 11296, 16748, 26979, 25902]
+
+Then i converted these values to hex and then ascii where i then got the code:
+"Dear Bob, check this out. https://www.surveillancewatch.io/ See ya, Alice."
+
+This way fails when using large integers bc:
+When factoring large n to p and q it becomes computationally impossible with even the most poweful computers
+
+This was is not secure bc: Encrypting individual ASCII characters makes it more vulnerable to attacks
+
+
