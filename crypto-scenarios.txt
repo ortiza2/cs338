@@ -1,0 +1,83 @@
+Angel Ortiz 
+1. Alice and Bob use the Diffie-Hellman and agree on a secret key K 
+Then Alice encrypts the long message M using AES with K: C = AES(K, M) 
+Alice sends the ciphertext C to Bob. 
+Bob decrypts C using K to get M: M = AES_D(K, C) 
+
+The message is encrypted with AES with a key that only Bob and Alice know, and because AITM is impossible 
+Eve cannot get the secret message bc she does not know K, thus she cant get M. 
+
+2. Alice computes a cryptographic hash of the message M using SHA-256: H = H(M) 
+Then Alice signs the hash H using her private key S_A: Signature = E(S_A, H) 
+The Alice sends M and Signature to Bob. 
+Bob computes the hash of the received message M: H' = H(M) 
+Bob decrypts the signature using Alice's public key P_A: H'' = E(P_A, Signature) 
+Bob compares H' and H'': 
+- If they match the message hasnt been altered 
+- If they dont match then message has been changed 
+
+Since only Alice can create Signature bc she has S_A then Mal cannot try to replicate Signature without S_A bc any changes will be noticed by Bob bc he will know from H’ and H’’ will be different from the hash.
+
+3. Alice and Bob use Diffie Hellman and share K.
+Alice hashes M: H = H(M)
+then signs H with S_A: Signature = E(S_A, H)
+then concatenates M and Signature to encrypt with AES with key K:
+C = AES(K, M || Signature)
+
+Alice sends Bob C..
+
+Bob decrypts C using K to get M and Signature:
+M || Signature = AES_D(K, C)
+Bob gets H' = H(M).
+Bob decrypts Signature using P_A:
+H'' = E(P_A, Signature)
+He gets H' = H''.
+
+Explanation:
+
+AES with K makes sure that Eve cant read M.
+And Signature makes sure that the M Alice sent stays the same.
+AITM is impossible so the system is safe.
+
+
+4. 
+a)Event: Bob forged by using a Hash Collision
+SHA-256 is collision-resistant and is unlikely.
+
+
+b) alices key was tampered with by someone else
+This could moderately possible if S_A was compromised.
+
+
+c) The Signature changed bc of software error
+This not likely bc cryptographic software is tested a lot.
+
+
+5. 
+CA gets the signature Sig_CA: Sig_CA = E(S_CA, H("bob.com" || P_B))
+
+CA computes the hash of Bob's identity and public key: H = H("bob.com" || P_B)
+
+CA signs the hash using its private key S_CA: Sig_CA = E(S_CA, H)
+
+6. 
+No bc Cert_B makes sure that P_B belongs to "bob.com" with CA but it doesn't prove that Cert_B actually has the correct key S_B.
+
+They could try to do a verification:
+Alice gets a random number N and sends it to Bob
+
+Bob would then have to sign N using his private key S_B:
+Sig_B = E(S_B, N)
+And then send Sig_B back to Alice
+
+Alice then decrypts Sig_B using P_B from Cert_B: N' = E(P_B, Sig_B)
+And compares N and N' where if they are the same Alice knows that Bob got S_B.
+
+7. 
+a) Mal gets P_CA and changes P_CA with his own key P_Mal.
+Mal essentially impersonates Bob bc to Alice the signature appears valid and trusts that P_Mal actually is Bobs key
+
+
+b) Mal gets S_CA:
+
+Mal again impersonates Bob bc Alice uses the actual P_CA and verifies that the certificate is valid.
